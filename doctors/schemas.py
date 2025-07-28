@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 
-class DoctorBase(BaseModel):
+class DoctorSchema(BaseModel):
     id: Optional[int] = None
     full_name: str
     about: str
