@@ -1,7 +1,8 @@
 from sqlalchemy import(
     Column, 
     Integer, 
-    String, 
+    String,
+    Boolean, 
     CheckConstraint
 )
 
@@ -35,6 +36,11 @@ class Doctor(Base):
     experience = Column(
         Integer, 
         nullable=True,
+    )
+    is_active = Column(
+        Boolean,
+        default=True,
+        nullable=False
     )
 
     __table_args__ = (
