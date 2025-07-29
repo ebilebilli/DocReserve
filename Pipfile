@@ -12,7 +12,6 @@ tortoise-orm = "*"
 setuptools = "*"
 redis = ">=4.2.0"
 aioredis = "==1.3.1"
-fastapi-admin = "*"
 mysqlclient = "*"
 aiosqlite = "*"
 

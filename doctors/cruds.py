@@ -5,6 +5,15 @@ from models import Doctor
 from schemas import DoctorSchema
 
 
+__all__ = [
+    'get_doctor',
+    'get_doctors',
+    'create_doctor',
+    'update_doctor',
+    'delete_doctor'
+]
+
+
 def get_doctor(db: Session, doctor_id: int):
     doctor = db.query(Doctor).filter(Doctor.id==doctor_id).first()
     if not doctor:
