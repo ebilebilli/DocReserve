@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from models import Doctor
-from schemas import DoctorSchema
+from .models import Doctor
+from .schemas import DoctorSchema
 
 
 __all__ = [
@@ -17,7 +17,7 @@ __all__ = [
 def get_doctor_crud(db: Session, doctor_id: int):
     doctor = db.query(Doctor).filter(Doctor.id==doctor_id).first()
     if not doctor:
-        return HTTPException(status_code=404, detail='Doctor not found')
+        raise HTTPException(status_code=404, detail='Doctor not found')
     
     return doctor
 
@@ -45,8 +45,8 @@ def create_doctor_crud(db: Session, doctor: DoctorSchema):
 def update_doctor_crud(db: Session,  doctor_id: int, doctor: DoctorSchema):
     existing_doctor = db.query(Doctor).filter(Doctor.id==doctor_id).first()
     if not existing_doctor:
-        return HTTPException(status_code=404, detail='Doctor not found')
-    
+        raise HTTPException(status_code=404, detail='Doctor not found')
+        
     existing_doctor.full_name=doctor.full_name
     existing_doctor.about=doctor.about
     existing_doctor.age=doctor.age
@@ -60,6 +60,9 @@ def update_doctor_crud(db: Session,  doctor_id: int, doctor: DoctorSchema):
 
 def delete_doctor_crud(db: Session, doctor_id: int):
     doctor = db.query(Doctor).filter(Doctor.id==doctor_id).first()
+    if not doctor:
+        raise HTTPException(status_code=404, detail='Doctor not found')
+    
     db.delete(doctor)
     db.commit()
 
